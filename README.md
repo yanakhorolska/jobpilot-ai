@@ -1,121 +1,221 @@
-JobPilot AI
+# 🚀 JobPilot AI
 
-An AI-powered CLI application that automates job vacancy analysis and organizes extracted information into structured Excel spreadsheets.
+> AI-powered job vacancy analyzer and automated Excel tracker.
 
-Features
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Gemini](https://img.shields.io/badge/Google%20Gemini-886FBF?style=for-the-badge&logo=googlegemini&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-3068B7?style=for-the-badge&logo=zod&logoColor=white)
 
-Analyze job vacancies from raw text or website URLs.
+## 📖 Overview
 
-Extract structured information using Google Gemini AI.
+**JobPilot AI** is an AI-powered CLI application designed to
+simplify and automate the job search process.
 
-Execute tools through AI Function Calling.
+It analyzes job descriptions from raw text or website URLs,
+extracts relevant information using Google Gemini, and
+organizes the results into a structured Excel spreadsheet.
 
-Validate AI-generated data with Zod.
+The project demonstrates practical LLM integration,
+AI Function Calling, structured data extraction,
+schema validation, and workflow automation.
 
-Automatically create and update Excel spreadsheets.
+---
 
-Support multilingual job descriptions.
+## ✨ Features
 
-Fall back to manual text input when a webpage cannot be loaded.
+- **AI-powered extraction** — automatically extracts relevant
+  information from job descriptions.
+- **URL analysis** — retrieves vacancy content directly from
+  supported websites.
+- **Manual input** — supports multiline job descriptions.
+- **Function Calling** — allows Gemini to invoke the
+  predefined `saveJob` tool.
+- **Schema validation** — validates AI-generated data with Zod.
+- **Excel automation** — automatically creates and updates
+  spreadsheets.
+- **Multilingual support** — processes vacancies written
+  in different languages.
+- **Fallback mechanism** — switches to manual input when
+  webpage retrieval fails.
+- **Application tracking** — automatically assigns an initial
+  status and creation date.
 
-Automatically track application status and creation date.
+---
 
-Tech Stack
+## 🛠️ Tech Stack
 
-Node.js
+| Technology | Purpose |
+| :--- | :--- |
+| Node.js | Runtime environment |
+| TypeScript | Type-safe development |
+| Google Gemini API | LLM integration |
+| Function Calling | AI-driven tool execution |
+| Zod | Schema definition and validation |
+| ExcelJS | Excel file generation |
+| Cheerio | HTML parsing and content extraction |
+| Fetch API | HTTP requests |
+| Dotenv | Environment configuration |
+| TSX | TypeScript execution |
 
-TypeScript
+---
 
-Google Gemini API
+## 🧠 How It Works
 
-Function Calling / Tool Use
+```mermaid
+flowchart TD
+    A[Job Vacancy] --> B{Input Type}
+    B -->|URL| C[Fetch and Cheerio]
+    B -->|Text| D[Vacancy Content]
+    C -->|Success| D
+    C -->|Failure| E[Manual Input]
+    E --> D
+    D --> F[Gemini AI]
+    F --> G[Function Calling]
+    G --> H[Zod Validation]
+    H --> I[saveJob Tool]
+    I --> J[Excel Spreadsheet]
+```
 
-Prompt Engineering
+The application uses a predefined tool schema to extract
+structured information. AI-generated arguments are validated
+before being passed to the Excel export function.
 
-Zod
+---
 
-ExcelJS
+## 📊 Extracted Data
 
-Cheerio
+| Field | Description |
+| :--- | :--- |
+| Company | Company or product name |
+| Position | Complete job title |
+| Seniority | Required seniority level |
+| Location | Country and city |
+| Salary | Compensation details |
+| Work Mode | Remote, Hybrid or On-site |
+| English | Required English proficiency |
+| Experience | Professional experience requirements |
+| Contract Type | Employment contract type |
+| Technologies | Required and optional technical skills |
+| Benefits | Employee benefits |
+| Status | Initial application status |
+| Date Added | Automatically generated date |
+| URL | Original vacancy link, when provided |
 
-REST API
+---
 
-Dotenv
+## 📁 Project Structure
 
-Architecture
+```text
+jobpilot-ai/
+├── src/
+│   ├── index.ts
+│   ├── jobSchema.ts
+│   ├── getVacancyFromUrl.ts
+│   └── saveJob.ts
+├── .env.example
+├── .gitignore
+├── package.json
+├── package-lock.json
+└── README.md
+```
 
-Vacancy Text / URL → Content Extraction → Gemini AI → Function Calling → Zod Validation → Excel Export
+---
 
-Installation
+## ⚙️ Getting Started
 
-Clone the repository:
+### 1. Clone the repository
 
+```bash
 git clone https://github.com/yanakhorolska/jobpilot-ai.git
-
-Navigate to the project directory:
-
 cd jobpilot-ai
+```
 
-Install dependencies:
+### 2. Install dependencies
 
+```bash
 npm install
+```
 
-Create a .env file based on .env.example and provide your Gemini API key.
+### 3. Configure environment variables
 
-Usage
+Create a `.env` file in the root directory:
 
-Analyze a job description
+```env
+GEMINI_API_KEY=your_api_key_here
+```
 
+You can obtain an API key from
+[Google AI Studio](https://aistudio.google.com/apikey).
+
+> Never commit your API key to a public repository.
+
+---
+
+## 💻 Usage
+
+### Option 1 — Analyze a job description
+
+```bash
 npm start
+```
 
-Paste the vacancy description and type END on a new line.
+Paste the full vacancy description into the terminal.
+Type `END` on a new line to start the analysis.
 
-Analyze a vacancy URL
+### Option 2 — Analyze a vacancy URL
 
+```bash
 npm start -- "https://example.com/job"
+```
 
-The extracted information will be saved to jobs.xlsx.
+### Output
 
-Extracted Information
+The extracted information is automatically saved to:
 
-Company and position
+```text
+jobs.xlsx
+```
 
-Seniority and location
+Each new vacancy is added to the existing spreadsheet.
 
-Salary and work mode
+---
 
-English proficiency
+## 🔬 AI Engineering Concepts
 
-Professional experience
+This project demonstrates the practical application of:
 
-Contract type
+- LLM API integration
+- Prompt Engineering
+- Function Calling and Tool Use
+- Structured Data Extraction
+- Schema Validation
+- Single Source of Truth
+- Automated Workflow Execution
+- Error Handling and Fallback Strategies
 
-Technologies and benefits
+---
 
-Application status
+## ⚠️ Limitations
 
-Date added
+- Some websites restrict automated HTTP requests.
+- Dynamically rendered content may require manual input.
+- AI-generated information may be incomplete or inaccurate
+  and should be reviewed.
+- The application currently operates through a CLI.
 
-Vacancy URL
+---
 
-Project Structure
+## 👩‍💻 Author
 
-src/
-├── index.ts
-├── jobSchema.ts
-├── getVacancyFromUrl.ts
-└── saveJob.ts
+**Yana Khorolska**
 
-Limitations
+Full-Stack Developer | Generative AI & Automation
 
-Some websites use client-side rendering or restrict automated requests. In such cases, vacancy descriptions may need to be provided manually.
+[GitHub](https://github.com/yanakhorolska)
 
-AI-generated information should be reviewed for accuracy.
+---
 
-Project Purpose
-
-This project demonstrates practical integration of Large Language Models into software applications, including structured data extraction, tool execution, schema validation, prompt engineering, web content processing, and workflow automation.
-
-Author
-
-Yana Khorolska
+<p align="center">
+  Built with TypeScript, Gemini AI and curiosity.
+</p>
